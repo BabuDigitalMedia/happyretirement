@@ -1,7 +1,13 @@
 
 export const TrustedCompanies = () => {
   const companies = [
-    "Nationwide", "AIG", "North American", "Lincoln", "Athene", "Allianz", "Fidelity & Guaranty"
+    { name: "Nationwide", logo: "https://images.unsplash.com/photo-1483058712412-4245e9b90334?w=200&h=100&fit=crop&auto=format" },
+    { name: "AIG", logo: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=200&h=100&fit=crop&auto=format" },
+    { name: "North American", logo: "https://images.unsplash.com/photo-1494891848038-7bd202a2afeb?w=200&h=100&fit=crop&auto=format" },
+    { name: "Lincoln", logo: "https://images.unsplash.com/photo-1551038247-3d9af20df552?w=200&h=100&fit=crop&auto=format" },
+    { name: "Athene", logo: "https://images.unsplash.com/photo-1483058712412-4245e9b90334?w=200&h=100&fit=crop&auto=format" },
+    { name: "Allianz", logo: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=200&h=100&fit=crop&auto=format" },
+    { name: "Fidelity & Guaranty", logo: "https://images.unsplash.com/photo-1494891848038-7bd202a2afeb?w=200&h=100&fit=crop&auto=format" }
   ];
   
   return (
@@ -20,9 +26,14 @@ export const TrustedCompanies = () => {
           {companies.map((company, index) => (
             <div 
               key={index}
-              className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 flex items-center justify-center"
+              className="bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col items-center justify-center"
             >
-              <span className="text-lg font-bold text-navy-900 text-center">{company}</span>
+              <img 
+                src={company.logo} 
+                alt={`${company.name} logo`}
+                className="w-16 h-8 object-contain mb-3 opacity-80"
+              />
+              <span className="text-sm font-bold text-navy-900 text-center">{company.name}</span>
             </div>
           ))}
         </div>
