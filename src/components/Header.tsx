@@ -1,7 +1,7 @@
 
 export const Header = () => {
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200 py-4">
+    <header className="bg-navy-900 shadow-lg border-b border-navy-700 py-4">
       <div className="container mx-auto max-w-7xl px-4">
         <div className="flex items-center">
           <img 
@@ -10,8 +10,8 @@ export const Header = () => {
             className="w-12 h-12 mr-3"
           />
           <div>
-            <h1 className="text-xl font-bold text-navy-900">Grow-Shine Financial Group LLC</h1>
-            <p className="text-sm text-gray-600">Licensed Financial Professionals</p>
+            <h1 className="text-xl font-bold text-white">Grow-Shine Financial Group LLC</h1>
+            <p className="text-sm text-gold-400">Licensed Financial Professionals</p>
           </div>
         </div>
       </div>
