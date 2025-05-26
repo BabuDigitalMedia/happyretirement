@@ -1,7 +1,8 @@
 
+
 export const Header = () => {
   return (
-    <header className="bg-navy-900 shadow-lg border-b border-navy-700 py-4">
+    <header className="bg-navy-700 shadow-lg border-b border-navy-600 py-4">
       <div className="container mx-auto max-w-7xl px-4">
         <div className="flex items-center">
           <img 
@@ -18,3 +19,4 @@ export const Header = () => {
     </header>
   );
 };
+
