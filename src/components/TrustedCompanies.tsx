@@ -1,13 +1,34 @@
 
 export const TrustedCompanies = () => {
   const companies = [
-    { name: "Nationwide", logo: "https://images.unsplash.com/photo-1483058712412-4245e9b90334?w=200&h=100&fit=crop&auto=format" },
-    { name: "AIG", logo: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=200&h=100&fit=crop&auto=format" },
-    { name: "North American", logo: "https://images.unsplash.com/photo-1494891848038-7bd202a2afeb?w=200&h=100&fit=crop&auto=format" },
-    { name: "Lincoln", logo: "https://images.unsplash.com/photo-1551038247-3d9af20df552?w=200&h=100&fit=crop&auto=format" },
-    { name: "Athene", logo: "https://images.unsplash.com/photo-1483058712412-4245e9b90334?w=200&h=100&fit=crop&auto=format" },
-    { name: "Allianz", logo: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=200&h=100&fit=crop&auto=format" },
-    { name: "Fidelity & Guaranty", logo: "https://images.unsplash.com/photo-1494891848038-7bd202a2afeb?w=200&h=100&fit=crop&auto=format" }
+    { 
+      name: "Nationwide", 
+      logo: "https://www.nationwide.com/-/media/nationwide/images/logos/nationwide-logo.svg"
+    },
+    { 
+      name: "AIG", 
+      logo: "https://www.aig.com/content/dam/aig/america-canada/us/images/brand/aig-logo.svg"
+    },
+    { 
+      name: "North American", 
+      logo: "https://www.northamericancompany.com/content/dam/sammons/logos/nac-logo-horizontal.svg"
+    },
+    { 
+      name: "Lincoln Financial", 
+      logo: "https://www.lfg.com/static/images/lincoln-financial-group-logo.svg"
+    },
+    { 
+      name: "Athene", 
+      logo: "https://www.athene.com/content/dam/athene/global/images/logos/athene-logo-horizontal.svg"
+    },
+    { 
+      name: "Allianz", 
+      logo: "https://www.allianz.com/content/dam/onemarketing/azcom/Allianz_com/logos/allianz-logo.svg"
+    },
+    { 
+      name: "F&G", 
+      logo: "https://www.fglife.com/content/dam/fglife/logos/fg-logo-horizontal.svg"
+    }
   ];
   
   return (
@@ -26,14 +47,19 @@ export const TrustedCompanies = () => {
           {companies.map((company, index) => (
             <div 
               key={index}
-              className="bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col items-center justify-center"
+              className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col items-center justify-center min-h-[120px]"
             >
               <img 
                 src={company.logo} 
                 alt={`${company.name} logo`}
-                className="w-16 h-8 object-contain mb-3 opacity-80"
+                className="max-w-full max-h-12 object-contain mb-3 opacity-90 filter grayscale hover:grayscale-0 transition-all duration-300"
+                onError={(e) => {
+                  // Fallback to text if logo fails to load
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.nextElementSibling.style.display = 'block';
+                }}
               />
-              <span className="text-sm font-bold text-navy-900 text-center">{company.name}</span>
+              <span className="text-sm font-bold text-navy-900 text-center hidden">{company.name}</span>
             </div>
           ))}
         </div>
