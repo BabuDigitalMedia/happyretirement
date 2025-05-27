@@ -1,10 +1,11 @@
 
 
+
 export const TrustedCompanies = () => {
   const companies = [
     { 
       name: "Nationwide", 
-      logo: "https://www.nationwide.com/-/media/nationwide/images/logos/nationwide-logo.svg"
+      logo: "/lovable-uploads/470eb895-9b57-4169-bf1c-d3a5e60ef9e6.png"
     },
     { 
       name: "AIG", 
@@ -72,4 +73,5 @@ export const TrustedCompanies = () => {
     </section>
   );
 };
+
 
