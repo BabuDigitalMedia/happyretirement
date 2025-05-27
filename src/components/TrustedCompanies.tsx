@@ -1,4 +1,5 @@
 
+
 export const TrustedCompanies = () => {
   const companies = [
     { 
@@ -55,8 +56,12 @@ export const TrustedCompanies = () => {
                 className="max-w-full max-h-12 object-contain mb-3 opacity-90 filter grayscale hover:grayscale-0 transition-all duration-300"
                 onError={(e) => {
                   // Fallback to text if logo fails to load
-                  e.currentTarget.style.display = 'none';
-                  e.currentTarget.nextElementSibling.style.display = 'block';
+                  const target = e.currentTarget as HTMLImageElement;
+                  target.style.display = 'none';
+                  const nextElement = target.nextElementSibling as HTMLElement;
+                  if (nextElement) {
+                    nextElement.style.display = 'block';
+                  }
                 }}
               />
               <span className="text-sm font-bold text-navy-900 text-center hidden">{company.name}</span>
@@ -67,3 +72,4 @@ export const TrustedCompanies = () => {
     </section>
   );
 };
+
