@@ -8,28 +8,32 @@ export const TrustedCompanies = () => {
       logo: "/lovable-uploads/470eb895-9b57-4169-bf1c-d3a5e60ef9e6.png"
     },
     { 
-      name: "AIG", 
-      logo: "https://www.aig.com/content/dam/aig/america-canada/us/images/brand/aig-logo.svg"
+      name: "F&G", 
+      logo: "/lovable-uploads/0f973015-a1a2-4702-84ec-355c34242468.png"
     },
     { 
-      name: "North American", 
-      logo: "https://www.northamericancompany.com/content/dam/sammons/logos/nac-logo-horizontal.svg"
-    },
-    { 
-      name: "Lincoln Financial", 
-      logo: "https://www.lfg.com/static/images/lincoln-financial-group-logo.svg"
+      name: "Ameritas", 
+      logo: "/lovable-uploads/af0a8459-8dfe-4380-bc75-f22ceeb894ef.png"
     },
     { 
       name: "Athene", 
-      logo: "https://www.athene.com/content/dam/athene/global/images/logos/athene-logo-horizontal.svg"
+      logo: "/lovable-uploads/2c904cd0-6711-47e8-848c-25311823c083.png"
     },
     { 
-      name: "Allianz", 
-      logo: "https://www.allianz.com/content/dam/onemarketing/azcom/Allianz_com/logos/allianz-logo.svg"
+      name: "Corebridge Financial", 
+      logo: "/lovable-uploads/d7c8471e-0e04-4137-85fe-42e7795dccc0.png"
     },
     { 
-      name: "F&G", 
-      logo: "https://www.fglife.com/content/dam/fglife/logos/fg-logo-horizontal.svg"
+      name: "Mutual of Omaha", 
+      logo: "/lovable-uploads/a94e20d4-fd12-47a4-ad4f-8f347aa0115c.png"
+    },
+    { 
+      name: "Lincoln Financial", 
+      logo: "/lovable-uploads/e182f348-1e70-4920-9772-ea09c8658655.png"
+    },
+    { 
+      name: "North American", 
+      logo: "/lovable-uploads/94230d2c-7a9c-4990-abf5-015fe99f952e.png"
     }
   ];
   
@@ -45,7 +49,7 @@ export const TrustedCompanies = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6">
           {companies.map((company, index) => (
             <div 
               key={index}
@@ -73,5 +77,3 @@ export const TrustedCompanies = () => {
     </section>
   );
 };
-
-
