@@ -20,9 +20,9 @@ export const Header = () => {
           
           <Button 
             className="bg-gold-500 hover:bg-gold-600 text-navy-900 font-semibold px-6 py-2"
-            onClick={() => window.open('tel:+16096747817', '_self')}
+            onClick={() => window.open('https://link.crmvo.com/widget/bookings/growshinefin-happyretire', '_blank')}
           >
-            Call Now
+            Schedule Call
           </Button>
         </div>
       </div>

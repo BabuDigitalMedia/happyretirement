@@ -20,7 +20,7 @@ export const FinalCTA = () => {
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8">
             <Button 
               className="w-full bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold py-6 px-12 rounded-full text-xl transition-all duration-300 transform hover:scale-105 shadow-lg mb-6"
-              onClick={() => window.open('https://growshinefin.com/', '_blank')}
+              onClick={() => window.open('https://link.crmvo.com/widget/bookings/growshinefin-happyretire', '_blank')}
             >
               <Lock className="w-6 h-6 mr-3" />
               Schedule My Free Call

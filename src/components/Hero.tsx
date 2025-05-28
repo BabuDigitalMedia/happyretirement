@@ -128,7 +128,7 @@ export const Hero = () => {
                 </div>
                 <Button 
                   className="w-full bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
-                  onClick={() => window.open('https://growshinefin.com/', '_blank')}
+                  onClick={() => window.open('https://link.crmvo.com/widget/bookings/growshinefin-happyretire', '_blank')}
                 >
                   <Calendar className="w-5 h-5 mr-2" />
                   Schedule My Free Strategy Call
