@@ -149,7 +149,7 @@ export const LeadMagnet = () => {
                     placeholder="Enter your full name"
                     value={formData.name}
                     onChange={(e) => handleInputChange("name", e.target.value)}
-                    className="pl-10 py-3 text-base border-gray-300 focus:border-gold-500 focus:ring-gold-500"
+                    className="pl-10 py-3 text-base border-gray-300 focus:border-gold-500 focus:ring-gold-500 bg-white text-gray-900 placeholder:text-gray-500"
                     required
                   />
                 </div>
@@ -167,7 +167,7 @@ export const LeadMagnet = () => {
                     placeholder="Enter your email address"
                     value={formData.email}
                     onChange={(e) => handleInputChange("email", e.target.value)}
-                    className="pl-10 py-3 text-base border-gray-300 focus:border-gold-500 focus:ring-gold-500"
+                    className="pl-10 py-3 text-base border-gray-300 focus:border-gold-500 focus:ring-gold-500 bg-white text-gray-900 placeholder:text-gray-500"
                     required
                   />
                 </div>
@@ -185,7 +185,7 @@ export const LeadMagnet = () => {
                     placeholder="(555) 123-4567"
                     value={formData.phone}
                     onChange={(e) => handleInputChange("phone", e.target.value)}
-                    className="pl-10 py-3 text-base border-gray-300 focus:border-gold-500 focus:ring-gold-500"
+                    className="pl-10 py-3 text-base border-gray-300 focus:border-gold-500 focus:ring-gold-500 bg-white text-gray-900 placeholder:text-gray-500"
                     required
                   />
                 </div>
