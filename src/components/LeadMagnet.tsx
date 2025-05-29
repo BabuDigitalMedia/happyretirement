@@ -43,11 +43,17 @@ export const LeadMagnet = () => {
     }
 
     try {
+      const apiKey = import.meta.env.VITE_GOHIGHLEVEL_API_KEY;
+      
+      if (!apiKey) {
+        throw new Error('API configuration missing');
+      }
+
       // Send to GoHighLevel CRM
       const response = await fetch('https://services.leadconnectorhq.com/contacts/', {
         method: 'POST',
         headers: {
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2NhdGlvbl9pZCI6IkJudHFlNWNxZVdYbUp0VzFObERtIiwiY29tcGFueV9pZCI6IkoxOEVNaVNvNzlqYnFUdkV2VFh1IiwidmVyc2lvbiI6MSwiaWF0IjoxNjkyMjMyNjE5OTI0LCJzdWIiOiJ1c2VyX2lkIn0.y9dv0fDzMtTQTKJqWzEcRLW2JU3N_gKTQbQ7YLOV7HQ',
+          'Authorization': `Bearer ${apiKey}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -61,7 +67,6 @@ export const LeadMagnet = () => {
       });
 
       if (response.ok) {
-        console.log("Lead sent to GoHighLevel:", formData);
         toast({
           title: "Success!",
           description: "Your free Retirement Rescue Guide is being sent to your email.",
