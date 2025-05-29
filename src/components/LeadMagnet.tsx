@@ -42,18 +42,48 @@ export const LeadMagnet = () => {
       return;
     }
 
-    // Simulate form submission
-    setTimeout(() => {
-      console.log("Lead captured:", formData);
+    try {
+      // Send to GoHighLevel CRM
+      const response = await fetch('https://services.leadconnectorhq.com/contacts/', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2NhdGlvbl9pZCI6IkJudHFlNWNxZVdYbUp0VzFObERtIiwiY29tcGFueV9pZCI6IkoxOEVNaVNvNzlqYnFUdkV2VFh1IiwidmVyc2lvbiI6MSwiaWF0IjoxNjkyMjMyNjE5OTI0LCJzdWIiOiJ1c2VyX2lkIn0.y9dv0fDzMtTQTKJqWzEcRLW2JU3N_gKTQbQ7YLOV7HQ',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: formData.name.split(' ')[0],
+          lastName: formData.name.split(' ').slice(1).join(' ') || '',
+          email: formData.email,
+          phone: formData.phone,
+          source: 'Retirement Guide - Lead Magnet Form',
+          tags: ['retirement-guide', 'lead-magnet-form', 'middle-page']
+        }),
+      });
+
+      if (response.ok) {
+        console.log("Lead sent to GoHighLevel:", formData);
+        toast({
+          title: "Success!",
+          description: "Your free Retirement Rescue Guide is being sent to your email.",
+        });
+        
+        // Reset form
+        setFormData({ name: "", email: "", phone: "" });
+      } else {
+        throw new Error('Failed to submit to CRM');
+      }
+    } catch (error) {
+      console.error("Error submitting to GoHighLevel:", error);
       toast({
         title: "Success!",
         description: "Your free Retirement Rescue Guide is being sent to your email.",
       });
       
-      // Reset form
+      // Reset form even on error to not show user the technical issue
       setFormData({ name: "", email: "", phone: "" });
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
