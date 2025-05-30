@@ -222,7 +222,7 @@ export const Hero = () => {
                       placeholder="Enter your name"
                       value={formData.name}
                       onChange={(e) => handleInputChange("name", e.target.value)}
-                      className="pl-9 py-2 text-sm border-gray-300 focus:border-gold-500 focus:ring-gold-500"
+                      className="pl-9 py-2 text-sm border-gray-300 focus:border-gold-500 focus:ring-gold-500 bg-white text-gray-900 placeholder:text-gray-500"
                       required
                     />
                   </div>
@@ -240,7 +240,7 @@ export const Hero = () => {
                       placeholder="Enter your email"
                       value={formData.email}
                       onChange={(e) => handleInputChange("email", e.target.value)}
-                      className="pl-9 py-2 text-sm border-gray-300 focus:border-gold-500 focus:ring-gold-500"
+                      className="pl-9 py-2 text-sm border-gray-300 focus:border-gold-500 focus:ring-gold-500 bg-white text-gray-900 placeholder:text-gray-500"
                       required
                     />
                   </div>
@@ -258,7 +258,7 @@ export const Hero = () => {
                       placeholder="(555) 123-4567"
                       value={formData.phone}
                       onChange={(e) => handleInputChange("phone", e.target.value)}
-                      className="pl-9 py-2 text-sm border-gray-300 focus:border-gold-500 focus:ring-gold-500"
+                      className="pl-9 py-2 text-sm border-gray-300 focus:border-gold-500 focus:ring-gold-500 bg-white text-gray-900 placeholder:text-gray-500"
                       required
                     />
                   </div>
