@@ -51,6 +51,7 @@ export const LeadMagnet = () => {
         headers: {
           'Authorization': `Bearer ${apiKey}`,
           'Content-Type': 'application/json',
+          'Version': '2021-07-28',
         },
         body: JSON.stringify({
           firstName: formData.name.split(' ')[0],
@@ -71,6 +72,8 @@ export const LeadMagnet = () => {
         // Reset form
         setFormData({ name: "", email: "", phone: "" });
       } else {
+        const errorData = await response.text();
+        console.error('GoHighLevel API Error:', response.status, errorData);
         throw new Error('Failed to submit to CRM');
       }
     } catch (error) {
