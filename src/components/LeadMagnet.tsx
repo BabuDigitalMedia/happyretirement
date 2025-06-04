@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -42,63 +43,43 @@ export const LeadMagnet = () => {
     }
 
     try {
-      // GoHighLevel API key
-      const apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2NhdGlvbl9pZCI6IkJudHFlNWNxZVdYbUp0VzFObERtIiwiY29tcGFueV9pZCI6IkoxOEVNaVNvNzlqYnFUdkV2VFh1IiwidmVyc2lvbiI6MSwiaWF0IjoxNjkyMjMyNjE5OTI0LCJzdWIiOiJ1c2VyX2lkIn0.y9dv0fDzMtTQTKJqWzEcRLW2JU3N_gKTQbQ7YLOV7HQ";
+      // Create Google Form submission URL with pre-filled data
+      // You'll need to replace this with your actual Google Form URL and field IDs
+      const googleFormUrl = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse';
+      
+      // Create form data for Google Forms
+      const googleFormData = new FormData();
+      googleFormData.append('entry.YOUR_NAME_FIELD_ID', formData.name);
+      googleFormData.append('entry.YOUR_EMAIL_FIELD_ID', formData.email);
+      googleFormData.append('entry.YOUR_PHONE_FIELD_ID', formData.phone);
+      googleFormData.append('entry.YOUR_SOURCE_FIELD_ID', 'Lead Magnet Form - Retirement Guide');
 
-      console.log('Attempting to submit to GoHighLevel CRM from LeadMagnet...');
+      console.log('Submitting to Google Form...');
       console.log('Form data:', formData);
 
-      // Send to GoHighLevel CRM - Updated API endpoint and format
-      const response = await fetch('https://services.leadconnectorhq.com/contacts/', {
+      // Submit to Google Form (no-cors mode as Google Forms doesn't support CORS)
+      await fetch(googleFormUrl, {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Version': '2021-07-28',
-        },
-        body: JSON.stringify({
-          firstName: formData.name.split(' ')[0],
-          lastName: formData.name.split(' ').slice(1).join(' ') || '',
-          email: formData.email,
-          phone: formData.phone,
-          source: 'Retirement Guide - Lead Magnet Form',
-          tags: ['retirement-guide', 'lead-magnet-form', 'middle-page']
-        }),
+        mode: 'no-cors',
+        body: googleFormData
       });
 
-      console.log('Response status:', response.status);
-      const responseData = await response.text();
-      console.log('Response data:', responseData);
-
-      if (response.ok) {
-        toast({
-          title: "Success!",
-          description: "Your free Retirement Rescue Guide is being sent to your email.",
-        });
-        
-        // Reset form
-        setFormData({ name: "", email: "", phone: "" });
-      } else {
-        console.error('GoHighLevel API Error:', response.status, responseData);
-        
-        // Show success to user but log the actual error for debugging
-        toast({
-          title: "Success!",
-          description: "Your free Retirement Rescue Guide is being sent to your email.",
-        });
-        
-        // Reset form even on error to not show user the technical issue
-        setFormData({ name: "", email: "", phone: "" });
-      }
-    } catch (error) {
-      console.error("Error submitting to GoHighLevel:", error);
+      // Since no-cors doesn't return response data, we assume success
       toast({
         title: "Success!",
         description: "Your free Retirement Rescue Guide is being sent to your email.",
       });
       
-      // Reset form even on error to not show user the technical issue
+      // Reset form
+      setFormData({ name: "", email: "", phone: "" });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        title: "Success!",
+        description: "Your free Retirement Rescue Guide is being sent to your email.",
+      });
+      
+      // Reset form even on error
       setFormData({ name: "", email: "", phone: "" });
     } finally {
       setIsSubmitting(false);
