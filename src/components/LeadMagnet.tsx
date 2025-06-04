@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -43,10 +42,11 @@ export const LeadMagnet = () => {
     }
 
     try {
-      const apiKey = import.meta.env.VITE_GOHIGHLEVEL_API_KEY;
+      // Replace YOUR_GHL_API_KEY_HERE with your actual GoHighLevel API key
+      const apiKey = "YOUR_GHL_API_KEY_HERE";
       
-      if (!apiKey) {
-        throw new Error('API configuration missing');
+      if (!apiKey || apiKey === "YOUR_GHL_API_KEY_HERE") {
+        throw new Error('Please add your GoHighLevel API key');
       }
 
       // Send to GoHighLevel CRM
