@@ -55,6 +55,7 @@ export const LeadMagnet = () => {
           'Authorization': `Bearer ${apiKey}`,
           'Content-Type': 'application/json',
           'Accept': 'application/json',
+          'Version': '2021-07-28',
         },
         body: JSON.stringify({
           firstName: formData.name.split(' ')[0],
