@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { User, Mail, Phone, Download } from "lucide-react";
 import { useCRMForm } from "@/hooks/useCRMForm";
+import { useNavigate } from "react-router-dom";
 
 interface ContactFormProps {
   source: string;
@@ -12,7 +13,13 @@ interface ContactFormProps {
 }
 
 export const ContactForm = ({ source, size = "default", showGuideInfo = false }: ContactFormProps) => {
-  const { formData, isSubmitting, handleSubmit, handleInputChange } = useCRMForm(source);
+  const navigate = useNavigate();
+  
+  const handleSuccess = () => {
+    navigate('/guide-success');
+  };
+  
+  const { formData, isSubmitting, handleSubmit, handleInputChange } = useCRMForm(source, handleSuccess);
   
   const isCompact = size === "compact";
   const iconSize = isCompact ? "w-4 h-4" : "w-5 h-5";
@@ -122,7 +129,7 @@ export const ContactForm = ({ source, size = "default", showGuideInfo = false }:
           className={`w-full bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-white font-bold ${buttonPadding} rounded-full ${buttonTextSize} transition-all duration-300 transform hover:scale-105 shadow-lg`}
         >
           {isSubmitting ? (
-            <span>Sending Guide...</span>
+            <span>Processing...</span>
           ) : (
             <>
               <Download className={`${iconSize} mr-2`} />

@@ -8,7 +8,7 @@ interface FormData {
   phone: string;
 }
 
-export const useCRMForm = (source: string) => {
+export const useCRMForm = (source: string, onSuccess?: () => void) => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -77,11 +77,18 @@ export const useCRMForm = (source: string) => {
 
       toast({
         title: "Success!",
-        description: "Your free Retirement Rescue Guide is being sent to your email.",
+        description: "Redirecting you to your free guide...",
       });
       
       // Reset form
       setFormData({ name: "", email: "", phone: "" });
+
+      // Call the success callback if provided (for redirecting to guide)
+      if (onSuccess) {
+        setTimeout(() => {
+          onSuccess();
+        }, 1500);
+      }
 
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -93,6 +100,13 @@ export const useCRMForm = (source: string) => {
       
       // Reset form
       setFormData({ name: "", email: "", phone: "" });
+
+      // Still call success callback even on error
+      if (onSuccess) {
+        setTimeout(() => {
+          onSuccess();
+        }, 1500);
+      }
     } finally {
       setIsSubmitting(false);
     }
