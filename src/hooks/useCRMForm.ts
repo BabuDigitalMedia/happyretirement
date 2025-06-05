@@ -49,32 +49,19 @@ export const useCRMForm = (source: string, onSuccess?: () => void) => {
       console.log('Submitting to CRM Form...');
       console.log('Form data:', formData);
 
-      // Create a hidden form and submit it
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = 'https://link.crmvo.com/widget/form/Ikho0u4XID6szJUONub9';
-      form.style.display = 'none';
+      // Send data to CRM using fetch instead of form submission
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('phone', formData.phone);
+      formDataToSend.append('source', source);
 
-      // Map and add form fields
-      const fields = {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        source: source
-      };
-
-      Object.entries(fields).forEach(([key, value]) => {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = key;
-        input.value = value;
-        form.appendChild(input);
+      // Use fetch with no-cors to avoid CORS issues but prevent navigation
+      await fetch('https://link.crmvo.com/widget/form/Ikho0u4XID6szJUONub9', {
+        method: 'POST',
+        mode: 'no-cors',
+        body: formDataToSend
       });
-
-      // Append form to body, submit, and clean up
-      document.body.appendChild(form);
-      form.submit();
-      document.body.removeChild(form);
 
       toast({
         title: "Success!",
