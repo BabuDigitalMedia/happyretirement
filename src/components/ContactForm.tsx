@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { User, Mail, Phone, Download, CheckCircle, ArrowLeft } from "lucide-react";
 import { useCRMForm } from "@/hooks/useCRMForm";
+import { generateRetirementGuide } from "@/utils/pdfGenerator";
 
 interface ContactFormProps {
   source: string;
@@ -21,52 +22,8 @@ export const ContactForm = ({ source, size = "default", showGuideInfo = false }:
   const buttonTextSize = isCompact ? "text-sm" : "text-lg";
 
   const handleDownloadGuide = () => {
-    // Create a mock PDF download - in a real scenario, this would be a real PDF file
-    const guideContent = `
-RETIREMENT RESCUE GUIDE
-======================
-
-Table of Contents:
-1. Protecting Your Savings from Market Crashes
-2. Tax-Deferred Growth Strategies
-3. Creating Guaranteed Lifetime Income Streams
-4. Annuities vs. Traditional Retirement Accounts
-
-Chapter 1: Protecting Your Savings from Market Crashes
-------------------------------------------------------
-Market volatility can devastate retirement savings. Learn how Fixed Indexed Annuities provide principal protection while offering growth potential.
-
-Key Benefits:
-- Zero market loss guarantee
-- Participation in market gains
-- No direct market exposure
-
-Chapter 2: Tax-Deferred Growth Strategies
-----------------------------------------
-Maximize your retirement savings with tax-deferred growth opportunities that compound over time.
-
-Chapter 3: Guaranteed Lifetime Income
-------------------------------------
-Discover how to create income streams that you can never outlive, providing peace of mind in retirement.
-
-Chapter 4: Annuities vs. Traditional Accounts
----------------------------------------------
-Compare the benefits and drawbacks of different retirement savings vehicles to make informed decisions.
-
-Contact Information:
-Grow-Shine Financial Group LLC
-For personalized guidance, schedule your free consultation.
-    `;
-
-    const blob = new Blob([guideContent], { type: 'text/plain' });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'Retirement-Rescue-Guide.txt';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
+    const doc = generateRetirementGuide();
+    doc.save('Retirement-Rescue-Guide.pdf');
   };
 
   // Show success state with guide delivery
