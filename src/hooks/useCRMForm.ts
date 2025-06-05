@@ -15,6 +15,7 @@ export const useCRMForm = (source: string, onSuccess?: () => void) => {
     phone: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -77,17 +78,16 @@ export const useCRMForm = (source: string, onSuccess?: () => void) => {
 
       toast({
         title: "Success!",
-        description: "Redirecting you to your free guide...",
+        description: "Your free guide is ready for download!",
       });
       
-      // Reset form
+      // Reset form and show success state
       setFormData({ name: "", email: "", phone: "" });
+      setIsSuccess(true);
 
-      // Call the success callback if provided (for redirecting to guide)
+      // Call the success callback if provided
       if (onSuccess) {
-        setTimeout(() => {
-          onSuccess();
-        }, 1500);
+        onSuccess();
       }
 
     } catch (error) {
@@ -98,14 +98,13 @@ export const useCRMForm = (source: string, onSuccess?: () => void) => {
         description: "Your information has been received. We'll be in touch soon!",
       });
       
-      // Reset form
+      // Reset form and show success state
       setFormData({ name: "", email: "", phone: "" });
+      setIsSuccess(true);
 
       // Still call success callback even on error
       if (onSuccess) {
-        setTimeout(() => {
-          onSuccess();
-        }, 1500);
+        onSuccess();
       }
     } finally {
       setIsSubmitting(false);
@@ -116,10 +115,16 @@ export const useCRMForm = (source: string, onSuccess?: () => void) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  const resetSuccess = () => {
+    setIsSuccess(false);
+  };
+
   return {
     formData,
     isSubmitting,
+    isSuccess,
     handleSubmit,
-    handleInputChange
+    handleInputChange,
+    resetSuccess
   };
 };
