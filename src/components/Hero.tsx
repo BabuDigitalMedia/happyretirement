@@ -43,35 +43,35 @@ export const Hero = () => {
     }
 
     try {
-      // Create Google Form submission URL with pre-filled data
-      // You'll need to replace this with your actual Google Form URL and field IDs
-      const googleFormUrl = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse';
+      // Submit to CRM form
+      const crmFormUrl = 'https://link.crmvo.com/widget/form/Ikho0u4XID6szJUONub9';
       
-      // Create form data for Google Forms
-      const googleFormData = new FormData();
-      googleFormData.append('entry.YOUR_NAME_FIELD_ID', formData.name);
-      googleFormData.append('entry.YOUR_EMAIL_FIELD_ID', formData.email);
-      googleFormData.append('entry.YOUR_PHONE_FIELD_ID', formData.phone);
-      googleFormData.append('entry.YOUR_SOURCE_FIELD_ID', 'Hero Form - Retirement Guide');
+      // Create form data for CRM
+      const crmFormData = new FormData();
+      crmFormData.append('name', formData.name);
+      crmFormData.append('email', formData.email);
+      crmFormData.append('phone', formData.phone);
+      crmFormData.append('source', 'Hero Form - Retirement Guide');
 
-      console.log('Submitting to Google Form...');
+      console.log('Submitting to CRM Form...');
       console.log('Form data:', formData);
 
-      // Submit to Google Form (no-cors mode as Google Forms doesn't support CORS)
-      await fetch(googleFormUrl, {
+      const response = await fetch(crmFormUrl, {
         method: 'POST',
-        mode: 'no-cors',
-        body: googleFormData
+        body: crmFormData
       });
 
-      // Since no-cors doesn't return response data, we assume success
-      toast({
-        title: "Success!",
-        description: "Your free Retirement Rescue Guide is being sent to your email.",
-      });
-      
-      // Reset form
-      setFormData({ name: "", email: "", phone: "" });
+      if (response.ok) {
+        toast({
+          title: "Success!",
+          description: "Your free Retirement Rescue Guide is being sent to your email.",
+        });
+        
+        // Reset form
+        setFormData({ name: "", email: "", phone: "" });
+      } else {
+        throw new Error('Form submission failed');
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
       toast({
