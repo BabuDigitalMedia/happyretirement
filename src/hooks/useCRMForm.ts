@@ -48,14 +48,13 @@ export const useCRMForm = (source: string) => {
       console.log('Submitting to CRM Form...');
       console.log('Form data:', formData);
 
-      // Create a form and submit it directly
+      // Create a hidden form and submit it
       const form = document.createElement('form');
       form.method = 'POST';
       form.action = 'https://link.crmvo.com/widget/form/Ikho0u4XID6szJUONub9';
-      form.target = '_blank';
       form.style.display = 'none';
 
-      // Add form fields
+      // Map and add form fields
       const fields = {
         name: formData.name,
         email: formData.email,
@@ -71,11 +70,9 @@ export const useCRMForm = (source: string) => {
         form.appendChild(input);
       });
 
-      // Append form to body and submit
+      // Append form to body, submit, and clean up
       document.body.appendChild(form);
       form.submit();
-
-      // Clean up immediately
       document.body.removeChild(form);
 
       toast({
