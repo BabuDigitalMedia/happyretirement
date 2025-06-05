@@ -45,16 +45,15 @@ export const useCRMForm = (source: string) => {
     }
 
     try {
-      // Create a hidden iframe to submit the form (bypasses CORS)
-      const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
+      console.log('Submitting to CRM Form...');
+      console.log('Form data:', formData);
 
-      // Create a form element
+      // Create a form and submit it directly
       const form = document.createElement('form');
       form.method = 'POST';
       form.action = 'https://link.crmvo.com/widget/form/Ikho0u4XID6szJUONub9';
-      form.target = iframe.name;
+      form.target = '_blank';
+      form.style.display = 'none';
 
       // Add form fields
       const fields = {
@@ -72,18 +71,12 @@ export const useCRMForm = (source: string) => {
         form.appendChild(input);
       });
 
-      console.log('Submitting to CRM Form...');
-      console.log('Form data:', formData);
-
       // Append form to body and submit
       document.body.appendChild(form);
       form.submit();
 
-      // Clean up
-      setTimeout(() => {
-        document.body.removeChild(form);
-        document.body.removeChild(iframe);
-      }, 1000);
+      // Clean up immediately
+      document.body.removeChild(form);
 
       toast({
         title: "Success!",
@@ -96,7 +89,6 @@ export const useCRMForm = (source: string) => {
     } catch (error) {
       console.error("Error submitting form:", error);
       
-      // Still show success message as the form might have gone through
       toast({
         title: "Form Submitted!",
         description: "Your information has been received. We'll be in touch soon!",
