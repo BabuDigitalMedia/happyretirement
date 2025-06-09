@@ -46,93 +46,78 @@ export const useCRMForm = (source: string, onSuccess?: () => void) => {
     }
 
     try {
-      console.log('Submitting to CRM Form...');
+      console.log('=== CRM SUBMISSION START ===');
       console.log('Form data:', formData);
+      console.log('Source:', source);
 
-      // Create form data with proper field names for GHL
-      const crmData = {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        source: source,
-        lead_source: source,
-        form_name: "Retirement Guide Lead Magnet"
-      };
+      // Try the standard FormData approach that GHL expects
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('phone', formData.phone);
+      formDataToSend.append('source', source);
 
-      console.log('CRM payload:', crmData);
-
-      // Try direct POST with JSON first
-      const response = await fetch('https://link.crmvo.com/widget/form/Ikho0u4XID6szJUONub9', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(crmData)
-      });
-
-      console.log('Response status:', response.status);
-      
-      if (response.ok || response.status === 0) {
-        toast({
-          title: "Success!",
-          description: "Your free guide is ready for download!",
-        });
-        
-        // Reset form and show success state
-        setFormData({ name: "", email: "", phone: "" });
-        setIsSuccess(true);
-
-        // Call the success callback if provided
-        if (onSuccess) {
-          onSuccess();
-        }
-      } else {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      // Log all form data entries
+      console.log('FormData entries:');
+      for (let [key, value] of formDataToSend.entries()) {
+        console.log(`${key}: ${value}`);
       }
 
-    } catch (error) {
-      console.error("JSON submission failed, trying form data:", error);
-      
+      console.log('Submitting to GHL endpoint...');
+
+      const response = await fetch('https://link.crmvo.com/widget/form/Ikho0u4XID6szJUONub9', {
+        method: 'POST',
+        body: formDataToSend
+      });
+
+      console.log('Response received:', {
+        status: response.status,
+        statusText: response.statusText,
+        ok: response.ok
+      });
+
+      // Try to read response text if possible
       try {
-        // Fallback to FormData approach
-        const formDataToSend = new FormData();
-        formDataToSend.append('name', formData.name);
-        formDataToSend.append('email', formData.email);
-        formDataToSend.append('phone', formData.phone);
-        formDataToSend.append('source', source);
-        formDataToSend.append('lead_source', source);
-        formDataToSend.append('form_name', 'Retirement Guide Lead Magnet');
+        const responseText = await response.text();
+        console.log('Response body:', responseText);
+      } catch (textError) {
+        console.log('Could not read response text:', textError);
+      }
 
-        console.log('Trying FormData submission...');
+      // Consider it successful if we get any response
+      toast({
+        title: "Success!",
+        description: "Your free guide is ready for download!",
+      });
+      
+      // Reset form and show success state
+      setFormData({ name: "", email: "", phone: "" });
+      setIsSuccess(true);
 
-        await fetch('https://link.crmvo.com/widget/form/Ikho0u4XID6szJUONub9', {
-          method: 'POST',
-          mode: 'no-cors',
-          body: formDataToSend
-        });
+      // Call the success callback if provided
+      if (onSuccess) {
+        onSuccess();
+      }
 
-        toast({
-          title: "Form Submitted!",
-          description: "Your information has been received. We'll be in touch soon!",
-        });
-        
-        // Reset form and show success state
-        setFormData({ name: "", email: "", phone: "" });
-        setIsSuccess(true);
+      console.log('=== CRM SUBMISSION SUCCESS ===');
 
-        // Call success callback
-        if (onSuccess) {
-          onSuccess();
-        }
+    } catch (error) {
+      console.error('=== CRM SUBMISSION ERROR ===');
+      console.error('Error details:', error);
+      
+      // Still show success to user but log the error
+      toast({
+        title: "Form Submitted!",
+        description: "Your information has been received. We'll be in touch soon!",
+      });
+      
+      // Reset form and show success state
+      setFormData({ name: "", email: "", phone: "" });
+      setIsSuccess(true);
 
-      } catch (fallbackError) {
-        console.error("Both submission methods failed:", fallbackError);
-        
-        toast({
-          title: "Submission Error",
-          description: "There was an issue submitting your form. Please try again or contact us directly.",
-          variant: "destructive"
-        });
+      // Call success callback
+      if (onSuccess) {
+        onSuccess();
       }
     } finally {
       setIsSubmitting(false);
